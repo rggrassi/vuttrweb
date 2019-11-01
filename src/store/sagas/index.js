@@ -1,14 +1,9 @@
 import { all, takeLatest } from 'redux-saga/effects';
-import { 
-    SIGNIN_REQUEST, 
-    SIGNIN_SUCCESS,
-} from '../actions/types';
-
+import { SIGNIN_REQUEST, SIGNIN_SUCCESS } from '../actions/types';
+import { signIn } from './auth';
 
 export default function* rootSaga() {
     return yield all([
-        /*takeLatest('persist/REHYDRATE', auth),
-        takeLatest(SIGNIN_REQUEST, signIn),
-        takeLatest(SIGNIN_SUCCESS, auth),*/
+        takeLatest(SIGNIN_REQUEST, signIn)
     ]);
 }

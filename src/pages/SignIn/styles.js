@@ -10,6 +10,15 @@ export const Container = styled.div`
   h3 {
     margin-bottom: 16px;
   }
+
+  p {
+    width: 100%;
+    max-width: 340px;
+    padding: 8px 16px;
+    text-align: center;
+    font-size: 16px;
+    color: #170c3a;
+  }
 `
 export const Form = styled.form`
   display: flex;
@@ -17,8 +26,7 @@ export const Form = styled.form`
   background: #fff;
   width: 100%;
   max-width: 340px;
-  height: 300px;
-  padding: 16px;
+  padding: 24px;
   border: 1px solid #ebeaed;
   border-radius: 5px;
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Form } from './styles';
 
 export default function SignIn() {
@@ -10,6 +11,10 @@ export default function SignIn() {
         <input placeholder='Password' type="password" autoComplete='false'/>
         <button type='submit'>Sign In</button>
       </Form>
+      <p>
+        New to VUTTR?
+        <Link>Create an account</Link>
+      </p>
     </Container>
   )    
 }
