@@ -19,6 +19,15 @@ export const Container = styled.div`
     font-size: 16px;
     color: #170c3a;
   }
+
+  a {
+    opacity: 0.8;
+    color: #365df0;
+
+    &:hover {
+      color: #244aa8;
+    }
+  }
 `
 export const Form = styled.form`
   display: flex;
