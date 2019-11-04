@@ -21,9 +21,7 @@ export const Container = styled.div`
   }
 
   a {
-    opacity: 0.8;
     color: #365df0;
-
     &:hover {
       color: #244aa8;
     }
@@ -40,28 +38,12 @@ export const Form = styled.form`
   border-radius: 5px;
 
   input {
-    height: 50px;
-    padding: 0 15px;
     margin-bottom: 8px;
-    background: #f5f4f6;
-    border-radius: 5px;
-    border: 1px solid #dedce1;
-    font-size: 20px;
-    color: #8f8a9b;
-    letter-spacing: 0.4px;
-
-    &::placeholder {
-      color: #b1adb9;
-    }
-
-    &:focus {
-      background: #ebeaed;      
-    }
   }
 
   button {
     height: 50px;
-    background: #0DCB7D;
+    background: #0dcb7d;
     border: 0;
     border-radius: 5px;
     font-weight: 600;

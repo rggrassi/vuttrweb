@@ -1,10 +1,15 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, Form } from './styles';
+import TextField from '../../styles/components/TextField';
 import useForm from '../../hooks/useForm';
 import * as Yup from 'yup';
+import { signInRequest } from '../../store/actions/auth';
 
 export default function SignIn() {
+  const dispatch = useDispatch();
+
   const schema = Yup.object().shape({
     email: Yup.string()
       .required()
@@ -19,25 +24,37 @@ export default function SignIn() {
     handleChange, 
     errors, 
     handleSubmit 
-  } = useForm(saveUser, schema);
+  } = useForm(signIn, schema);
 
-  function saveUser() {
-    console.log(values)  
+  function signIn() {
+    console.log(values);
+    const { email, password } = values;
+    dispatch(signInRequest(email, password));
   }
 
-  return (    
+  return (
     <Container>
-      { JSON.stringify(errors) }
       <h3>Sign in to VUTTR</h3>
       <Form onSubmit={handleSubmit}>
-        <input name='email' placeholder='Email address' onChange={handleChange} autoComplete='false' autoFocus/>
-        <input name='password' placeholder='Password' type="password" onChange={handleChange} autoComplete='false'/>
-        <button type='submit'>Sign In</button>
+        <TextField
+          name="email"
+          placeholder="Email address"
+          error={errors && errors.email}
+          onChange={handleChange}
+        />
+        <TextField
+          name="password"
+          placeholder="Password"
+          type="password"
+          error={errors && errors.password}
+          onChange={handleChange}
+        />
+        <button type="submit">Sign In</button>
       </Form>
       <p>
         New to VUTTR? &nbsp;
-        <Link to='#'>Create an account</Link>
+        <Link to="#">Create an account</Link>
       </p>
     </Container>
-  )    
+  );    
 }

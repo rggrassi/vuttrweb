@@ -17,7 +17,7 @@ function validate(values, schema) {
 
 export default function useForm(callback, schema) {
   const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState(null);
   const [isSubmitting, setSubmitting] = useState(false);
 
   useEffect(() => {
