@@ -5,7 +5,7 @@ export default function(reducers) {
     const persistedReducer = persistReducer({
         key: 'vuttr',
         storage,
-        whitelist: ['token', 'user']
+        whitelist: ['auth', 'user']
     }, reducers)
 
     return persistedReducer;

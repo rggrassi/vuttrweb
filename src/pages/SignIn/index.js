@@ -1,14 +1,16 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Container, Form } from './styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { Container, Form, SubmitButton } from './styles';
 import TextField from '../../styles/components/TextField';
-import useForm from '../../hooks/useForm';
+import { FaSpinner } from 'react-icons/fa';
 import * as Yup from 'yup';
+import useForm from '../../hooks/useForm';
 import { signInRequest } from '../../store/actions/auth';
 
 export default function SignIn() {
   const dispatch = useDispatch();
+  const fetching = useSelector(state => state.auth.fetching);
 
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -27,7 +29,6 @@ export default function SignIn() {
   } = useForm(signIn, schema);
 
   function signIn() {
-    console.log(values);
     const { email, password } = values;
     dispatch(signInRequest(email, password));
   }
@@ -49,7 +50,9 @@ export default function SignIn() {
           error={errors && errors.password}
           onChange={handleChange}
         />
-        <button type="submit">Sign In</button>
+        <SubmitButton fetching={fetching}>
+          { fetching ? <FaSpinner color='#fff' size={22}/> : 'Sign In' }
+        </SubmitButton>
       </Form>
       <p>
         New to VUTTR? &nbsp;
