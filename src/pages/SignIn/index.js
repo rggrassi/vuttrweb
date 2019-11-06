@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Form, SubmitButton } from './styles';
 import TextField from '../../styles/components/TextField';
 import { FaSpinner } from 'react-icons/fa';
 import { signInRequest, signInReset } from '../../store/actions/auth';
@@ -34,10 +33,10 @@ export default function SignIn() {
   }  
 
   return (
-    <Container>
+    <React.Fragment>
       <h3>{error && error.message}</h3>
       <h3>Sign in to VUTTR</h3>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
           name="email"
           type="email"
@@ -55,14 +54,14 @@ export default function SignIn() {
           register={register}
           error={errors.password && errors.password.message}
         />
-        <SubmitButton fetching={fetching}>
+        <button type='submit' disabled={fetching}>
           { fetching ? <FaSpinner color='#fff' size={22}/> : 'Sign In' }
-        </SubmitButton>
-      </Form>
+        </button>
+      </form>
       <p>
         New to VUTTR? &nbsp;
         <Link to="#">Create an account</Link>
       </p>
-    </Container>
-  );    
+    </React.Fragment>
+  )  
 }
