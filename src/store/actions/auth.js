@@ -1,4 +1,4 @@
-import { SIGNIN_REQUEST, SIGNIN_SUCCESS, SIGNIN_FAILURE } from './types';
+import { SIGNIN_REQUEST, SIGNIN_SUCCESS, SIGNIN_FAILURE, SIGNIN_RESET } from './types';
 
 export function signInRequest(email, password) {
     return {
@@ -14,8 +14,15 @@ export function signInSuccess(token, user) {
     }
 }
 
-export function signInFailure() {
+export function signInFailure(message) {
     return {
-        type: SIGNIN_FAILURE
+        type: SIGNIN_FAILURE,
+        payload: { message }
+    }
+}
+
+export function signInReset() {
+    return {
+        type: SIGNIN_RESET,
     }
 }

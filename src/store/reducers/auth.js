@@ -1,17 +1,30 @@
-import { SIGNIN_REQUEST, SIGNIN_SUCCESS, SIGNIN_FAILURE } from '../actions/types';
+import {
+  SIGNIN_REQUEST,
+  SIGNIN_SUCCESS,
+  SIGNIN_FAILURE,
+  SIGNIN_RESET
+} from "../actions/types";
 
-const INITIAL_STATE = { token: null, signed: false, fetching: false };
+const INITIAL_STATE = {
+  token: null,
+  signed: false,
+  fetching: false,
+  error: null
+};
 
 export default function auth(state = INITIAL_STATE, action) {
   switch (action.type) {
     case SIGNIN_REQUEST: {
-      return { ...state, fetching: true }
+      return { ...state, fetching: true, error: null }
     }
     case SIGNIN_SUCCESS: {
       return { ...state, token: action.payload.token, signed: true, fetching: false }
     }
     case SIGNIN_FAILURE: {
-      return { ...state, fetching: false }
+      return { ...state, fetching: false, error: action.payload }
+    }
+    case SIGNIN_RESET: {
+      return { ...state, fetching: false, error: null }
     }
     default:
       return state;

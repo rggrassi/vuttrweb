@@ -76,6 +76,7 @@ export const SubmitButton = styled.button.attrs(props => ({
   }
 
   svg {
+    vertical-align: middle;
     animation: ${rotate} 2s linear infinite;
   }
 `
