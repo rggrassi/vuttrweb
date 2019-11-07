@@ -47,34 +47,34 @@ export const Wrapper = styled.div`
 
     input {
       margin-bottom: 8px;
-    }
-  }  
+    }    
 
-  button {
-    height: 50px;
-    background: #0dcb7d;
-    border: 0;
-    border-radius: 5px;
-    font-weight: 600;
-    font-size: 18px;
-    letter-spacing: 0.36px;
-    color: #fff;
-    transition: background 0.3s;
-    margin-top: 16px;
+    /*button {
+      height: 50px;
+      background: #0dcb7d;
+      border: 0;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: 0.36px;
+      color: #fff;
+      transition: background 0.3s;
+      margin-top: 16px;
 
-    &:hover {
-      background : #10b26c;
-    }
+      &:hover {
+        background : #10b26c;
+      }
 
-    &[disabled] {
-      cursor: not-allowed;
-      background: #88edc4;
-      color: #e7fbf3;
-    }
+      &[disabled] {
+        cursor: not-allowed;
+        background: #88edc4;
+        color: #e7fbf3;
+      }
 
-    svg {
-      vertical-align: middle;
-      animation: ${rotate} 2s linear infinite;
-    }
+      svg {
+        vertical-align: middle;
+        animation: ${rotate} 2s linear infinite;
+      }
+    }*/
   }
 `

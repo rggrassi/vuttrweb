@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from './styles';
+import PropTypes from 'prop-types';
 
 export default function TextField({ error, register, ...rest }) {
   return (
@@ -11,3 +12,12 @@ export default function TextField({ error, register, ...rest }) {
     </Container>
   )
 }
+
+TextField.propTypes = {
+  error: PropTypes.string,
+  register: PropTypes.func.isRequired
+};
+
+TextField.defaultProps = {
+  error: ''
+};

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import TextField from '../../styles/components/TextField';
-import { FaSpinner } from 'react-icons/fa';
+import SubmitButton from '../../styles/components/SubmitButton';
 import { signInRequest, signInReset } from '../../store/actions/auth';
 import * as Yup from 'yup';
 import useForm from 'react-hook-form';
@@ -54,9 +54,7 @@ export default function SignIn() {
           register={register}
           error={errors.password && errors.password.message}
         />
-        <button type='submit' disabled={fetching}>
-          { fetching ? <FaSpinner color='#fff' size={22}/> : 'Sign In' }
-        </button>
+        <SubmitButton caption='Sign In' loading={fetching} />
       </form>
       <p>
         New to VUTTR? &nbsp;
