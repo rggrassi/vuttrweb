@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import TextField from '../../styles/components/TextField';
 import SubmitButton from '../../styles/components/SubmitButton';
+import ContextBanner from '../../styles/components/ContextBanner';
+
 import { signInRequest, signInReset } from '../../store/actions/auth';
 import * as Yup from 'yup';
 import useForm from 'react-hook-form';
@@ -34,7 +36,9 @@ export default function SignIn() {
 
   return (
     <React.Fragment>
-      <h3>{error && error.message}</h3>
+      <ContextBanner />
+
+        {error && error.message}
       <h3>Sign in to VUTTR</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
