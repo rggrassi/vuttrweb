@@ -55,6 +55,12 @@ export default createGlobalStyle`
         color: #170c3a;
     }
 
+    h4 {
+        font-size: 26px;
+        font-weight: 600;
+        letter-spacing: 0.52px;
+        color: #170c3a;
+    }
 
     a {
         text-decoration: none;

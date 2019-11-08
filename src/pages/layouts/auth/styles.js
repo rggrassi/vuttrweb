@@ -8,14 +8,14 @@ export const Wrapper = styled.div`
 `
 export const Content = styled.div`
   width: 100%;
-  max-width: 340px;
+  max-width: 400px;
   padding: 24px;
   background: #fff;
   border: 1px solid #ebeaed;
   border-radius: 5px;
 
   h3 {
-    margin: 16px 0 16px 0;
+    margin-bottom: 32px;
     text-align: center;
   }
 
@@ -29,12 +29,12 @@ export const Content = styled.div`
   }
 
   p {
-    width: 100%;
-    max-width: 340px;
     padding: 8px 16px;
     text-align: center;
     font-size: 16px;
     color: #170c3a;
+
+    margin-bottom: 8px;
   }
 
   a {
@@ -42,5 +42,9 @@ export const Content = styled.div`
     &:hover {
       color: #244aa8;
     }
+  }
+
+  .context-banner {
+    margin-bottom: 32px;
   }
 `

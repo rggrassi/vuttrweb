@@ -1,22 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { signUpRequest } from '../../store/actions/auth';
 import TextField from '../../styles/components/TextField';
 import SubmitButton from '../../styles/components/SubmitButton';
 import ContextBanner from '../../styles/components/ContextBanner';
-import { signInRequest, signInReset } from '../../store/actions/auth';
 import useForm from 'react-hook-form';
 import * as Yup from 'yup';
 
-export default function SignIn() {
+export default function SignUp() {
   const dispatch = useDispatch();
-  const { fetching, error } = useSelector(state => state.auth);
-
-  useEffect(() => {
-    dispatch(signInReset());
-  }, [dispatch])
+  const { fetching, error } = useSelector(state => state.auth)
 
   const schema = Yup.object().shape({
+    name: Yup.string()
+      .required(),
     email: Yup.string()
       .required()
       .email(),
@@ -24,27 +22,34 @@ export default function SignIn() {
       .min(6)  
       .required()
   });
-  
+
   const { register, errors, handleSubmit } = useForm({
     validationSchema: schema
   });
 
-  function onSubmit({ email, password }) {
-    dispatch(signInRequest(email, password));
-  }  
+  function onSubmit({ name, email, password }) {
+    dispatch(signUpRequest(name, email, password));
+  }
 
   return (
     <React.Fragment>
       { error &&
         <ContextBanner message={error.message}/>
       }
-      <h3>Sign in to VUTTR</h3>
+      <p>Join VUTTR</p>
+      <h3>Create your account</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
-          name='email'
-          type='email'
-          placeholder='Email address'
+        <TextField 
+          name='name'
+          placeholder='Username'
           autoFocus='on'
+          register={register}
+          error={errors.name && errors.name.message}
+        />
+        <TextField 
+          name='email'
+          placeholder='Email address'
+          type='email'            
           register={register}
           error={errors.email && errors.email.message}
         />
@@ -55,12 +60,12 @@ export default function SignIn() {
           register={register}
           error={errors.password && errors.password.message}
         />
-        <SubmitButton caption='Sign In' loading={fetching} />
+        <SubmitButton caption='Create account' loading={fetching}/>
       </form>
       <p>
-        New to VUTTR? &nbsp;
-        <Link to='/register'>Create an account</Link>
+        Already have an account? &nbsp;
+        <Link to='/'>Sign in</Link>
       </p>
     </React.Fragment>
-  )  
+  )
 }

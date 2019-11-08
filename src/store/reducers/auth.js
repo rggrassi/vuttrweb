@@ -2,7 +2,11 @@ import {
   SIGNIN_REQUEST,
   SIGNIN_SUCCESS,
   SIGNIN_FAILURE,
-  SIGNIN_RESET
+  SIGNIN_RESET,
+  SIGNUP_REQUEST,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILURE,
+  SIGNUP_RESET
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -26,6 +30,20 @@ export default function auth(state = INITIAL_STATE, action) {
     case SIGNIN_RESET: {
       return { ...state, fetching: false, error: null }
     }
+
+    case SIGNUP_REQUEST: {
+      return { ...state, fetching: true, error: null }
+    }
+    case SIGNUP_SUCCESS: {
+      return { ...state, fetching: false }
+    }
+    case SIGNUP_FAILURE: {
+      return { ...state, fetching: false, error: action.payload }
+    }
+    case SIGNUP_RESET: {
+      return { ...state, fetching: false, error: null }
+    }
+
     default:
       return state;
   }

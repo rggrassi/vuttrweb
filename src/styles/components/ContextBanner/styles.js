@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  height: 80px;
+  height: 50px;
   padding: 8px 16px;
   border-radius: 5px;
   background: #f95e5a;
@@ -17,21 +17,19 @@ export const Container = styled.div`
     align-items: center;
   }
 
-  div:first-of-type {
-    padding: 8px 0;
-    svg {
-      margin-right: 8px;
-    }
-  }
-
-  div:last-of-type {
-    display: flex;
-    margin-left: auto;
-  }
-
   button {
     border: 0;
     background: transparent;
     vertical-align: middle;
   }
+`
+export const MessageContent = styled.div`
+  padding: 8px 0;
+  svg {
+    margin-right: 8px;
+  }
+`
+export const ActionContent = styled.div`
+  display: flex;
+  margin-left: auto;
 `

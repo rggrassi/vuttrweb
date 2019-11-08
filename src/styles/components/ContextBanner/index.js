@@ -1,24 +1,24 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { MdClose, MdError } from 'react-icons/md';
-import { Container } from './styles';
+import { Container, MessageContent, ActionContent } from './styles';
 
 export default function ContextBanner({ message }) {
   return ( 
-    <Container>
-      <div>
+    <Container className='context-banner'>
+      <MessageContent>
         <span>
           <MdError color='#fff' size={20}/>
-          Wrong credentials
+          {message}
         </span>
-      </div>  
-      <div>
+      </MessageContent>  
+      <ActionContent>
         <button>
           <span>
             <MdClose color='#fff' size={12}/>
           </span>
         </button>
-      </div>
+      </ActionContent>
     </Container>
   );
 }

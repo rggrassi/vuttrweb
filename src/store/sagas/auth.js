@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { signInSuccess, signInFailure } from '../actions/auth';
+import { signInSuccess, signInFailure, signUpSuccess, signUpFailure } from '../actions/auth';
 import api from '../../services/api';
 import history from '../../services/history';
 
@@ -16,4 +16,18 @@ export function* signIn({ payload }) {
   } catch (err) {
     yield put(signInFailure(err.message));
   }
+}
+
+export function* signUp({ payload }) {
+  const { name, email, password } = payload;
+  try {
+    yield call(api.post, '/users', { 
+      name,
+      email,
+      password 
+    });
+    yield put(signUpSuccess());    
+  } catch (err) {
+    yield put(signUpFailure(err.message));  
+  }  
 }
