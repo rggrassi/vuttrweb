@@ -62,6 +62,13 @@ export default createGlobalStyle`
         color: #170c3a;
     }
 
+    h5 {
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: 0.48px;
+        color: #170c3a;
+    }
+
     a {
         text-decoration: none;
     }

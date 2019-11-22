@@ -57,10 +57,15 @@ export default function SignIn() {
         />
         <SubmitButton caption='Sign In' loading={fetching} />
       </form>
-      <p>
-        New to VUTTR? &nbsp;
-        <Link to='/register'>Create an account</Link>
-      </p>
+      <hr/>
+      <ul>
+        <li>
+          <Link to='/forgot'>Forgot password?</Link> &nbsp;
+        </li>
+        <li>
+          <Link to='/register'>Create an account</Link>
+        </li>
+      </ul>
     </React.Fragment>
   )  
 }
