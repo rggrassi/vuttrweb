@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import TextField from '../../styles/components/TextField';
-import SubmitButton from '../../styles/components/SubmitButton';
-import ContextBanner from '../../styles/components/ContextBanner';
+import TextField from '../../../styles/components/TextField';
+import SubmitButton from '../../../styles/components/SubmitButton';
+import ContextBanner from '../../../styles/components/ContextBanner';
 import useForm from 'react-hook-form';
 import * as Yup from 'yup';
-import api from '../../services/api';
+import api from '../../../services/api';
 
 export default function Forgot() {
   const [state, setState] = useState({

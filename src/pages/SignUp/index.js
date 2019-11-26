@@ -62,6 +62,7 @@ export default function SignUp() {
         />
         <SubmitButton caption='Create account' loading={fetching}/>
       </form>
+      <hr/>
       <p>
         Already have an account? &nbsp;
         <Link to='/'>Sign in</Link>
