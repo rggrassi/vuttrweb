@@ -13,7 +13,7 @@ export default function Routes() {
       <Route path="/" exact component={SignIn} />
       <Route path="/register" component={SignUp} />
       <Route path="/forgot" component={ForgotRequest} />
-      <Route path="/reset/:token" component={ForgotConfirm} />
+      <Route path="/reset/:token?" component={ForgotConfirm} />
       <Route path="/dashboard" isPrivate component={Dashboard} />
     </Switch>
   );
