@@ -38,7 +38,7 @@ export default function SignUp() {
       }
       <p>Join VUTTR</p>
       <h3>Create your account</h3>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <TextField 
           name='name'
           placeholder='Username'

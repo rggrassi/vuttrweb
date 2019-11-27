@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import * as ContextBanner  from '../../../styles/components/ContextBanner/styles';
 
 export const Wrapper = styled.div`
   height: 100%;
@@ -83,7 +84,14 @@ export const Content = styled.div`
     }
   }
 
-  .context-banner {
+  section {
+    
+  }
+
+  ${ContextBanner.Container} {
     margin-bottom: 32px;
   }
+  /*.error-message {
+    margin-bottom: 32px;
+  }*/
 `

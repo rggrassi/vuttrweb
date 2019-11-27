@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import api from '../../../services/api';
 
 export default function ForgotConfirm({ location }) {
-  const [query, token] = location.search.split('=');
+  const [, token] = location.search.split('=');
 
   const [state, setState] = useState({
     fetching: false,
@@ -18,7 +18,7 @@ export default function ForgotConfirm({ location }) {
     password: Yup.string()
       .min(6)
       .required(),
-    passwordConfirm: Yup.string()
+    confirmPassword: Yup.string()
       .min(6)
       .required(),
   });
@@ -50,8 +50,11 @@ export default function ForgotConfirm({ location }) {
 
   return (
     <React.Fragment>
+      { state.error &&
+        <ContextBanner message={state.error.message}/>
+      }
       <h5>Choose a new password</h5>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <TextField 
           name='password'
           type='password'
@@ -61,13 +64,13 @@ export default function ForgotConfirm({ location }) {
           error={errors.password && errors.password.message}
         />
         <TextField
-          name='passwordConfirm'
+          name='confirmPassword'
           type='password'
-          placeholder='New password (again)'
+          placeholder='Confirm password'
           register={register}
-          error={errors.passwordConfirm && errors.passwordConfirm.message}
+          error={errors.confirmPassword && errors.confirmPassword.message}
         />
-        <SubmitButton caption='Submit' />
+        <SubmitButton caption='Submit' loading={state.fetching}/>
       </form>
     </React.Fragment>
   );

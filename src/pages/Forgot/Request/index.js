@@ -10,7 +10,13 @@ import api from '../../../services/api';
 export default function Forgot() {
   const [state, setState] = useState({
     fetching: false,
-    error: null    
+    feedback: {
+      error: false,
+      success: false,
+      payload: ''
+    },
+    //error: null,
+    //success: false 
   }) 
   
   const schema = Yup.object().shape({
@@ -28,17 +34,31 @@ export default function Forgot() {
       setState({ 
         ...state, 
         fetching: true, 
-        error: null
+        feedback: null
+        //error: null
       });   
       await api.post('/forgot', { 
         email, 
         redirect: 'http://localhost:3000/reset' 
       });      
-      setState({ ...state, fetching: false });   
+      setState({ 
+        ...state, 
+        fetching: false, 
+        feedback: {
+          error: false,
+          success: true,
+          payload: email
+        }
+      });   
     } catch (err) {
       setState({ 
         ...state, 
-        error: { message: err.message }, 
+        feedback: {
+          error: true,
+          success: false,
+          payload: err.message
+        },
+        //error: { message: err.message }, 
         fetching: false
       });
     }    
@@ -46,27 +66,36 @@ export default function Forgot() {
 
   return (
     <React.Fragment>
-      { state.error &&  
-        <ContextBanner message={state.error.message}/>
+      { state.feedback.error &&  
+        <ContextBanner message={state.feedback.payload}/>
       }
       <h5>Forgot your password?</h5>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>We'll send a recovery link to</label>
-        <TextField
-          name='email'
-          type='email'
-          placeholder='Email address'
-          autoFocus='on'
-          register={register}
-          error={errors.email && errors.email.message}
-        />
-        <SubmitButton caption='Send recovery link' loading={state.fetching}/>
-      </form>
+      { !state.feedback.success && 
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <label>We'll send a recovery link to</label>
+          <TextField
+            name='email'
+            type='email'
+            placeholder='Email address'
+            autoFocus='on'
+            register={register}
+            error={errors.email && errors.email.message}
+          />
+          <SubmitButton caption='Send recovery link' loading={state.fetching}/>
+        </form>
+      }
+      { state.feedback.success &&
+        <React.Fragment>
+          <p>We sent a recovery link to your email address:</p>
+          <div>
+            <h4>We sent a recovery link to your email address:</h4>
+          </div>
+        </React.Fragment>
+      }
       <hr/>
       <p>
         <Link to='/'>Back to enter</Link>
       </p>
-
     </React.Fragment>
   )
 }

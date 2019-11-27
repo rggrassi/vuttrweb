@@ -5,7 +5,7 @@ import { Container, MessageContent, ActionContent } from './styles';
 
 export default function ContextBanner({ message }) {
   return ( 
-    <Container className='context-banner'>
+    <Container>
       <MessageContent>
         <span>
           <MdError color='#fff' size={20}/>

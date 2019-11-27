@@ -39,7 +39,7 @@ export default function SignIn() {
         <ContextBanner message={error.message}/>
       }
       <h3>Sign in to VUTTR</h3>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <TextField
           name='email'
           type='email'
