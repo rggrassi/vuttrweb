@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { MdClose, MdError } from 'react-icons/md';
-import { Container, MessageContent, ActionContent } from './styles';
+import { MdClose, MdInfo } from 'react-icons/md';
+import { Container, MessageContent, ActionContent, Types } from './styles';
 
-export default function ContextBanner({ message }) {
+export default function ContextBanner({ message, type }) {
   return ( 
-    <Container>
+    <Container type={type}>
       <MessageContent>
         <span>
-          <MdError color='#fff' size={20}/>
+          <MdInfo color='#fff' size={20}/>
           {message}
         </span>
       </MessageContent>  
@@ -24,5 +24,6 @@ export default function ContextBanner({ message }) {
 }
 
 ContextBanner.propTypes = {
-  message: PropTypes.string.isRequired
+  message: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(Object.keys(Types)).isRequired
 }

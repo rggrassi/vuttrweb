@@ -84,14 +84,7 @@ export const Content = styled.div`
     }
   }
 
-  section {
-    
-  }
-
   ${ContextBanner.Container} {
     margin-bottom: 32px;
   }
-  /*.error-message {
-    margin-bottom: 32px;
-  }*/
 `

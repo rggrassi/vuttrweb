@@ -1,16 +1,21 @@
 import styled from 'styled-components';
 
+export const Types = {
+  success: '#12db89',
+  error: '#f95e5a'
+}
+
 export const Container = styled.div`
   display: flex;
   align-items: center;
   height: 50px;
   padding: 8px 16px;
   border-radius: 5px;
-  background: #f95e5a;
+  background: ${props => Types[props.type]};
   color: #fff;
   font-size: 20px;
   font-weight: 600;
-  letter-spacing: 0.4ps;
+  letter-spacing: 0.4px;
 
   span {
     display: flex;

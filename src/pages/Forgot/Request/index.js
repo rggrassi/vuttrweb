@@ -7,7 +7,7 @@ import useForm from 'react-hook-form';
 import * as Yup from 'yup';
 import api from '../../../services/api';
 
-export default function Forgot() {
+export default function ForgotRequest() {
   const [state, setState] = useState({
     fetching: false,
     feedback: {
@@ -15,8 +15,6 @@ export default function Forgot() {
       success: false,
       payload: ''
     },
-    //error: null,
-    //success: false 
   }) 
   
   const schema = Yup.object().shape({
@@ -34,8 +32,11 @@ export default function Forgot() {
       setState({ 
         ...state, 
         fetching: true, 
-        feedback: null
-        //error: null
+        feedback: {
+          error: false,
+          success: false,
+          payload: ''
+        },
       });   
       await api.post('/forgot', { 
         email, 
@@ -53,13 +54,12 @@ export default function Forgot() {
     } catch (err) {
       setState({ 
         ...state, 
+        fetching: false,
         feedback: {
           error: true,
           success: false,
           payload: err.message
-        },
-        //error: { message: err.message }, 
-        fetching: false
+        }
       });
     }    
   }
@@ -88,7 +88,7 @@ export default function Forgot() {
         <React.Fragment>
           <p>We sent a recovery link to your email address:</p>
           <div>
-            <h4>We sent a recovery link to your email address:</h4>
+            <h4>{state.feedback.payload}</h4>
           </div>
         </React.Fragment>
       }
