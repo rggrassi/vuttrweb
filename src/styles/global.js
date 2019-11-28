@@ -26,12 +26,12 @@ export default createGlobalStyle`
         background: #ebeaed;
     }
 
-    #root {
-        height: 100%;
+    body, input, button, h1, h2, h3, h4, h5 {
+        font-family: 'Source Sans Pro', sans-serif;
     }
 
-    body, input, button, h1, h2, h3 {
-        font-family: 'Source Sans Pro', sans-serif;
+    #root {
+        height: 100%;
     }
 
     h1 {

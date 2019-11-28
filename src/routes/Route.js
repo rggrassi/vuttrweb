@@ -3,11 +3,13 @@ import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { store } from '../store';
 import Auth from '../pages/layouts/auth';
+import Default from '../pages/layouts/default';
 
 export default function RouterWrapper(props) {
     const { component: Component, isPrivate, ...rest } = props;
 
-    const { signed } = store.getState().auth;
+    // const { signed } = store.getState().auth;
+    const signed = true;
 
     if (!signed && isPrivate) {
       return <Redirect to={{ pathname: '/', state: { from: props.location } }}/>
@@ -17,12 +19,12 @@ export default function RouterWrapper(props) {
       return <Redirect to='/dashboard'/>
     }
 
-    //const Layout = signed ? DefaultLayout : Auth
+    const Layout = signed ? Default : Auth;
 
     return <Route {...rest} render={props => (
-      <Auth>
+      <Layout>
         <Component {...props}/>
-      </Auth>
+      </Layout>
     )}/>
 }
 

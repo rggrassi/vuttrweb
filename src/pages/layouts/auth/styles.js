@@ -49,6 +49,7 @@ export const Content = styled.div`
     padding: 8px 16px;
     text-align: center;
     font-size: 16px;
+    letter-spacing: 0.32px;
     color: #170c3a;
     margin-bottom: 8px;
   }
