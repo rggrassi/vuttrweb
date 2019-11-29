@@ -7,6 +7,7 @@ export const Header = styled.div`
     color: #170c3a;
     letter-spacing: 0.48px;
   }
+  margin-bottom: 24px;
 `;
 
 export const ToolBar = styled.div`

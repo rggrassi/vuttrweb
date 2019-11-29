@@ -11,14 +11,14 @@ export default function Dashboard() {
       </Header>
       <ToolBar>
         <div>
-          <div>
-            <input type='search' autoComplete='off' autoCorrect='off' />
-            <span>
+          <input type='search' autoComplete='off' autoCorrect='off' />
+          <span>
+            <button>
               <MdSearch/>
-            </span>
-          </div>
-          <input type='checkbox' checked/>
+            </button>
+          </span>
         </div>
+        <input type='checkbox' checked/>
       </ToolBar>
     </React.Fragment>
   );
