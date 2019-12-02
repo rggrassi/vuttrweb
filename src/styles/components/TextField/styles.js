@@ -7,7 +7,7 @@ export const Container = styled.div`
 
   input {
     height: 50px;
-    padding: 0 15px;
+    padding: 0 16px;
     border-radius: 5px;
     font-size: 20px;
     letter-spacing: 0.4px;

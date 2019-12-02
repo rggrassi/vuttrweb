@@ -1,6 +1,7 @@
 import React from 'react';
-import { Header, ToolBar } from './styles';
-import { MdSearch } from 'react-icons/md';
+import { Header, ToolBar, Search } from './styles';
+import { PrimaryButton } from '../../styles/components/PrimaryButton/styles';
+import search from '../../assets/search.svg';
 
 export default function Dashboard() {
   return (
@@ -10,15 +11,23 @@ export default function Dashboard() {
         <p>Very Usefull Tools to Remenber</p>
       </Header>
       <ToolBar>
-        <div>
-          <input type='search' autoComplete='off' autoCorrect='off' />
-          <span>
-            <button>
-              <MdSearch/>
-            </button>
-          </span>
-        </div>
-        <input type='checkbox' checked/>
+        <Search>
+          <div>
+            <input type='text' autoComplete='off' autoCorrect='off' placeholder='search'/>
+            <span>
+              <img src={search} alt='Search'/>                
+            </span>
+          </div>
+          <label htmlFor='tags'>
+            search in tags only
+            <input id='tags' type='checkbox'/>
+            <span></span>
+          </label>
+        </Search>
+        <PrimaryButton>
+          <span/><span/>
+          Add
+        </PrimaryButton>
       </ToolBar>
     </React.Fragment>
   );

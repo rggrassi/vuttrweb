@@ -8,4 +8,5 @@ export const Content = styled.div`
   max-width: 960px;
   margin: 0 auto;
   height: 100%;
+  padding: 0 16px;
 `
