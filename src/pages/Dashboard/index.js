@@ -1,34 +1,53 @@
 import React from 'react';
-import { Header, ToolBar, Search } from './styles';
-import { PrimaryButton } from '../../styles/components/PrimaryButton/styles';
+import { Header, HeaderContainer, ToolBar, Search, Tools, ToolsContainer } from './styles';
+import Profile from '../../styles/components/Profile';
+import { PrimaryButton } from '../../styles/components/PrimaryButton';
+import { Input } from '../../styles/components/Input';
+import Checkbox from '../../styles/components/Checkbox';
 import search from '../../assets/search.svg';
 
 export default function Dashboard() {
   return (
     <React.Fragment>
       <Header>
-        <h1>VUTTR</h1>
-        <p>Very Usefull Tools to Remenber</p>
+        <Profile/>
+        <HeaderContainer>
+          <h1>VUTTR</h1>
+          <p>Very Usefull Tools to Remenber</p>
+          <ToolBar>
+            <Search>
+              <div>
+                <Input type='text' autoComplete='off'  autoFocus='on' placeholder='search'/>
+                <span>
+                  <img src={search} alt='Search'/>                
+                </span>
+              </div>
+              <Checkbox caption='search in tags only'/>
+            </Search>
+            <PrimaryButton>
+              <span>&#10010;</span>          
+              Add
+            </PrimaryButton>
+          </ToolBar>
+        </HeaderContainer>
       </Header>
-      <ToolBar>
-        <Search>
-          <div>
-            <input type='text' autoComplete='off' autoCorrect='off' placeholder='search'/>
-            <span>
-              <img src={search} alt='Search'/>                
-            </span>
-          </div>
-          <label htmlFor='tags'>
-            search in tags only
-            <input id='tags' type='checkbox'/>
-            <span></span>
-          </label>
-        </Search>
-        <PrimaryButton>
-          <span/><span/>
-          Add
-        </PrimaryButton>
-      </ToolBar>
+      <Tools>
+        <ToolsContainer>
+          <ul>
+            <li>
+              <div>
+                <a href='https://github.com/' target='blank'>GitHub</a>
+                <button>
+                  <span>&#10006;</span>
+                  remove
+                </button>
+              </div>
+              <p>O usuário deve poder adicionar uma nova ferramenta</p>
+              <p>#node #web #github</p>
+            </li>
+          </ul>
+        </ToolsContainer>
+      </Tools>    
     </React.Fragment>
   );
 }

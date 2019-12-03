@@ -14,11 +14,10 @@ export default createGlobalStyle`
     -webkit-font-smoothing: antialiased !important;
     text-rendering: optimizeLegibility !important;
     height: 100%;
-    overflow: hidden;
     background: #ebeaed;
   }
 
-  body, input, button, h1, h2, h3, h4, h5 {
+  body, input, button, h1, h2, h3, h4, h5, p {
     font-family: 'Source Sans Pro', sans-serif;
   }
 

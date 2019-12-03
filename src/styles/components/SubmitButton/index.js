@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from './styles';
+import { ButtonSuccess } from './styles';
 import { FaSpinner } from 'react-icons/fa';
 
 export default function SubmitButton({ loading, caption }) {
   return (
-    <Button type="submit" disabled={loading}>
+    <ButtonSuccess type="submit" disabled={loading}>
       {loading ? <FaSpinner color="#fff" size={22} /> : caption}
-    </Button>
+    </ButtonSuccess>
   );
 }
 

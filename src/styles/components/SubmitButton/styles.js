@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { Button } from '../Button';
 
 const rotate = keyframes`
   from {
@@ -8,18 +9,9 @@ const rotate = keyframes`
     transform: rotate(360deg);
   }
 `
-export const Button = styled.button`
-  height: 50px;
+export const ButtonSuccess = styled(Button)`
   background: #0dcb7d;
-  border: 0;
-  border-radius: 5px;
-  font-weight: 600;
-  font-size: 18px;
-  letter-spacing: 0.36px;
-  color: #fff;
-  transition: background 0.3s;
   margin-top: 16px;
-
   &:hover {
     background : #10b26c;
   }

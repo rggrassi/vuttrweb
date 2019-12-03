@@ -1,11 +1,12 @@
 import React from 'react';
 import { Container } from './styles';
+import { Input } from '../Input'
 import PropTypes from 'prop-types';
 
 export default function TextField({ name, type, error, placeholder, register, ...rest }) {
   return (
     <Container error={error}>
-      <input 
+      <Input 
         name={name} 
         type={type} 
         placeholder={placeholder} 

@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
-export const PrimaryButton = styled.button`
-  height: 35px;
-  background: #365df0;
+export const Button = styled.button`
+  height: 50px;  
   border: 0;
   border-radius: 5px;
   font-weight: 600;
@@ -10,8 +9,4 @@ export const PrimaryButton = styled.button`
   letter-spacing: 0.36px;
   color: #fff;
   transition: background 0.3s;
-  padding: 0 16px;
-  &:hover {
-    background : #2f55cc ;
-  }
 `

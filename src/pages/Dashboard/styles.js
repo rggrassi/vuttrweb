@@ -1,8 +1,18 @@
 import styled from 'styled-components';
-import { PrimaryButton } from '../../styles/components/PrimaryButton/styles';
+import { PrimaryButton } from '../../styles/components/PrimaryButton';
+import { Container as Checkbox } from '../../styles/components/Checkbox/styles';
+import { Input } from '../../styles/components/Input';
 
 export const Header = styled.div`
-  margin: 16px 0 24px 0; 
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #ebeaed;
+`
+export const HeaderContainer = styled.div`
+  margin: 0 auto;
+  max-width: 960px;  
+  padding-top: 16px;
   p {
     font-size: 20px;
     font-weight: 600;
@@ -14,28 +24,18 @@ export const ToolBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-top: 16px;
+  
   ${PrimaryButton} {
-    padding: 0 24px 0 48px;
-    position: relative;
-    span:first-of-type {
-      position: absolute;
-      left: 24px;
-      top: 50%;
-      width: 12px;
-      height: 0px;
-      border: solid white;
-      border-width: 0px 0 2px 0px;
+    padding: 0 24px;
+    background: #365df0;
+    &:hover {
+      background : #2f55cc ;
     }
-    span:last-of-type {
-      position: absolute;
-      left: 29px;
-      top: calc(50% - 5px);
-      width: 2px;
-      height: 12px;
-      border: solid white;
-      border-width: 0px 2px 0px 0px;
+    span {
+      padding-right: 8px;
     }
-  }  
+  }
 `
 export const Search = styled.div`
   display: flex;
@@ -43,16 +43,9 @@ export const Search = styled.div`
   
   div {
     position: relative;
-    input[type=text] {
-      height: 50px;
+    ${Input} {
       line-height: 50px;
-      font-size: 20px;    
       padding: 0 44px;
-      letter-spacing: 0.4px;
-      background: #f5f4f6; 
-      color: #b1adb9;
-      border: 1px solid #ebeaed;
-      border-radius: 5px;    
     }
 
     span {
@@ -70,63 +63,66 @@ export const Search = styled.div`
     }
   }
 
-  label {
-    display: block;
-    margin-left: 8px;
-    position: relative;
-    padding-left: 20px;
-    cursor: pointer;
+  ${Checkbox} {
+    margin-left: 16px;
+  }
+`
+export const Tools = styled.div`
+  width: 100%;
+  max-width: 960px;
+  margin: 240px auto 0 auto;
+`
+export const ToolsContainer = styled.div`  
+  li {
+    margin: 16px 0;
+    padding: 16px;
+    background: #fff;
+    border-radius: 5px;
 
-    /* Hide the browser's default checkbox */
-    input {
-      position: absolute;
-      opacity: 0;
-      height: 0;
-      width: 0;
+    & div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      a {
+        text-decoration: underline;
+        color: #365DF0;
+        font-size: 18px;
+        font-weight: 600;
+        transition: color 0.5s;        
+        &:hover {
+          color: #244AA8;
+        }
+      }
+
+      button {
+        display: inline-flex;
+        height: 35px;
+        background: none;
+        border: 0;
+        font-weight: 600;
+        font-size: 16px;
+        letter-spacing: 0.36px;
+        color: #fcaeac;
+
+        span {
+          padding-right: 8px;
+        }
+        transition: color 0.5s;
+        &:hover {
+          color: #F95E5A ;
+        }
+      }
     }
 
-    /* Create a custom checkbox */
-    span {
-      position: absolute;
-      top: 4px;
-      left: 0;
-      height: 15px;
-      width: 15px;
-      background: #f5f4f6;
-      border-radius: 2px;
+    p {
+      color: #170c3a;
+      font-size: 16px;
     }
 
-    /* When the checkbox is checked, add a blue background */
-    input:checked + span {
-      background: #365df0;
-      border-radius: 2px;
-    }
-
-    /* Create the checkmark/indicator (hidden when not checked) */
-    span:after {
-      content: '';
-      position: absolute;
-      display: none;
-    }
-
-    /* Show the checkmark when checked */
-    input:checked + span:after {
-      display: block;
-    }
-
-    /* Style the checkmark/indicator */
-    span:after {
-      content: '';
-      position: absolute;
-      display: none;
-
-      left: 2px;
-      top: 3px;
-      width: 10px;
-      height: 4px;
-      border: solid white;
-      border-width: 2px 2px 0 0;
-      transform: rotate(125deg);
+    p:last-of-type {
+      margin-top: 8px;
+      font-weight: 600;
     }
   }
 `
