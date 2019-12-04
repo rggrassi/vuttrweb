@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Profile = styled.div`
   background: #fff;
   padding: 0 30px;
 `
-export const Content = styled.div`
+export const ProfileContainer = styled.div`
   height: 64px;
   margin: 0 auto;
   max-width: 960px;

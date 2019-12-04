@@ -67,12 +67,17 @@ export const Search = styled.div`
     margin-left: 16px;
   }
 `
-export const Tools = styled.div`
+/*export const Tools = styled.div`
   width: 100%;
   max-width: 960px;
   margin: 240px auto 0 auto;
-`
+`*/
+
 export const ToolsContainer = styled.div`  
+  width: 100%;
+  max-width: 960px;
+  margin: 240px auto 0 auto;
+
   li {
     margin: 16px 0;
     padding: 16px;
@@ -104,7 +109,6 @@ export const ToolsContainer = styled.div`
         font-size: 16px;
         letter-spacing: 0.36px;
         color: #fcaeac;
-
         span {
           padding-right: 8px;
         }

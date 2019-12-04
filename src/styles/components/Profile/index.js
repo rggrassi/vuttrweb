@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Content } from './styles';
+import { Profile, ProfileContainer } from './styles';
 
-export default function Header() {
+export default function () {
   return (
-    <Container>
-      <Content>
+    <Profile>
+      <ProfileContainer>
         <div>
           <strong>rgrassi1@gmail.com</strong>
           <Link to='#'>My profile</Link>
         </div>
-      </Content>
-    </Container>
+      </ProfileContainer>
+    </Profile>
   )
 }

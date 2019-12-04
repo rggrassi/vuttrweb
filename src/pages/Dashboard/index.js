@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, HeaderContainer, ToolBar, Search, Tools, ToolsContainer } from './styles';
+import { Header, HeaderContainer, ToolBar, Search, ToolsContainer } from './styles';
 import Profile from '../../styles/components/Profile';
 import { PrimaryButton } from '../../styles/components/PrimaryButton';
 import { Input } from '../../styles/components/Input';
@@ -31,23 +31,21 @@ export default function Dashboard() {
           </ToolBar>
         </HeaderContainer>
       </Header>
-      <Tools>
-        <ToolsContainer>
-          <ul>
-            <li>
-              <div>
-                <a href='https://github.com/' target='blank'>GitHub</a>
-                <button>
-                  <span>&#10006;</span>
-                  remove
-                </button>
-              </div>
-              <p>O usuário deve poder adicionar uma nova ferramenta</p>
-              <p>#node #web #github</p>
-            </li>
-          </ul>
-        </ToolsContainer>
-      </Tools>    
+      <ToolsContainer>
+        <ul>
+          <li>
+            <div>
+              <a href='https://github.com/' target='blank'>GitHub</a>
+              <button>
+                <span>&#10006;</span>
+                remove
+              </button>
+            </div>
+            <p>O usuário deve poder adicionar uma nova ferramenta</p>
+            <p>#node #web #github</p>
+          </li>
+        </ul>
+      </ToolsContainer>    
     </React.Fragment>
   );
 }

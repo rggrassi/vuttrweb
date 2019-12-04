@@ -6,6 +6,7 @@ import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import ForgotRequest from "../pages/Forgot/Request";
 import ForgotReset from "../pages/Forgot/Reset";
+import NewTool from '../pages/NewTool'; 
 
 export default function Routes() {
   return (
@@ -14,7 +15,9 @@ export default function Routes() {
       <Route path='/signup' component={SignUp} />
       <Route path='/forgot' component={ForgotRequest} />
       <Route path='/reset/:token?' component={ForgotReset} />
+      <Route path='/new' isPrivate component={NewTool} />
       <Route path='/' exact isPrivate component={Dashboard} />
+
     </Switch>
   );
 }
