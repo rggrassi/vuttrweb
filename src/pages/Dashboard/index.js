@@ -53,9 +53,7 @@ export default function Dashboard() {
           </li>
         </ul>
       </ToolsContainer>    
-      { open &&
-        <NewTool open={open} onClose={handleClose}/>
-      }
+      <NewTool open={open} onClose={handleClose}/>
     </React.Fragment>
   );
 }

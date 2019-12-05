@@ -5,7 +5,7 @@ import Dialog from '../../styles/components/Dialog';
 export default function NewTool({ open, onClose }) {
   return (
     <Dialog open={open} onClose={onClose}>
-      <h4>New Tool</h4>
+      <h4>New Tool New Tool New Tool New Tool New Tool</h4>
     </Dialog>
   )
 }

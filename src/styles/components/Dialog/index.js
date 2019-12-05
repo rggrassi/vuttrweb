@@ -1,27 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, ModalContainer, Backdrop, DialogContainer } from './styles';
+import { Modal, ModalContainer, Overlay } from './styles';
 
 export default function Dialog({ open, onClose, children }) {
-  function handleClose(event) {
-    const { id } = event.target;
-    if (id === 'modal-container') {
-      onClose()        
-    }
-  }
-
   return (
     <React.Fragment>
-      { open &&
-        <Modal onClick={handleClose}>
-          <Backdrop/>
-          <ModalContainer>
-            <DialogContainer>
-              { children }
-            </DialogContainer>
-          </ModalContainer>
-        </Modal>          
-      }
+      <Modal open={open}>
+        <ModalContainer open={open}>
+          { children }
+        </ModalContainer>
+      </Modal>       
+      <Overlay open={open} onClick={onClose}/>   
     </React.Fragment>
   )
 }
