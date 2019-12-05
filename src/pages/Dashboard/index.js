@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Header, HeaderContainer, ToolBar, Search, ToolsContainer } from './styles';
 import Profile from '../../styles/components/Profile';
 import { PrimaryButton } from '../../styles/components/PrimaryButton';
 import { Input } from '../../styles/components/Input';
 import Checkbox from '../../styles/components/Checkbox';
+import NewTool from '../NewTool';
 import search from '../../assets/search.svg';
 
 export default function Dashboard() {
+  const [open, setOpen] = useState(false);
+
+  function handleClose() {
+    setOpen(false);
+  }
+  
   return (
     <React.Fragment>
       <Header>
@@ -24,7 +31,7 @@ export default function Dashboard() {
               </div>
               <Checkbox caption='search in tags only'/>
             </Search>
-            <PrimaryButton>
+            <PrimaryButton onClick={() => setOpen(true)}>
               <span>&#10010;</span>          
               Add
             </PrimaryButton>
@@ -46,6 +53,9 @@ export default function Dashboard() {
           </li>
         </ul>
       </ToolsContainer>    
+      { open &&
+        <NewTool open={open} onClose={handleClose}/>
+      }
     </React.Fragment>
   );
 }

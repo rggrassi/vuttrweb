@@ -1,10 +1,16 @@
 import React from 'react';
-import { Modal, ModalContainer } from './styles';
+import PropTypes from 'prop-types';
+import Dialog from '../../styles/components/Dialog';
 
-export default function NewTool() {
+export default function NewTool({ open, onClose }) {
   return (
-    <Modal>
-      <ModalContainer/>
-    </Modal>
+    <Dialog open={open} onClose={onClose}>
+      <h4>New Tool</h4>
+    </Dialog>
   )
+}
+
+NewTool.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired
 }
