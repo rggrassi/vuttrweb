@@ -25,4 +25,10 @@ export const Container = styled.div`
   p::first-letter {
     text-transform: capitalize;
   }
+
+  label {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 4px;
+  }
 `

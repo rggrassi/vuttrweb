@@ -6,13 +6,14 @@ export const Modal = styled.div`
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
+  min-width: 300px;  
   z-index: 2000;
 `
 export const ModalContainer = styled.div`
   position: relative;
-  width: 100%;
   max-width: 800px;
-  min-height: 300px;
+  min-height: 120px;  
+  padding: 16px;
   background: #fff;
   border-radius: 5px;
   box-shadow: 0px 20px 25px #0000001A;
@@ -21,7 +22,6 @@ export const ModalContainer = styled.div`
   transition: all 0.3s;
 `
 export const Overlay = styled.div`
-  visibility: ${props => props.open ? 'visible' : 'hidden'};
   position: fixed;
   width: 100%;
   height: 100%;
@@ -29,6 +29,7 @@ export const Overlay = styled.div`
   left: 0;
   z-index: 1000;
   background: rgba(67, 64, 64, 0.5);
+  visibility: ${props => props.open ? 'visible' : 'hidden'};
   opacity: ${props => props.open ? 1 : 0};
   transition: all 0.3s;
 `

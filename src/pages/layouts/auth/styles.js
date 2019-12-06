@@ -33,7 +33,7 @@ export const Content = styled.div`
   }
 
   input {
-    margin-bottom: 8px;
+    margin-bottom: 8px;    
   }
 
   hr {

@@ -72,9 +72,9 @@ export default function ForgotRequest() {
       <h5>Forgot your password?</h5>
       { !state.feedback.success && 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <label>We'll send a recovery link to</label>
           <TextField
             name='email'
+            label="We'll send a recovery link to"
             type='email'
             placeholder='Email address'
             autoFocus='on'

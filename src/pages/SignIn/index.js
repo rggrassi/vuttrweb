@@ -41,6 +41,7 @@ export default function SignIn() {
       <h3>Sign in to VUTTR</h3>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <TextField
+          label='E-mail'
           name='email'
           type='email'
           placeholder='Email address'
@@ -49,6 +50,7 @@ export default function SignIn() {
           error={errors.email && errors.email.message}
         />
         <TextField
+          label='Password'
           name='password'
           placeholder='Password'
           type='password'

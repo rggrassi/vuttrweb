@@ -79,6 +79,7 @@ export default function ForgotReset({ location }) {
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <TextField 
             name='password'
+            label='Password'
             type='password'
             placeholder='New password'
             autoFocus='on'
@@ -87,6 +88,7 @@ export default function ForgotReset({ location }) {
           />
           <TextField
             name='confirmPassword'
+            label='Confirm'
             type='password'
             placeholder='Confirm password'
             register={register}

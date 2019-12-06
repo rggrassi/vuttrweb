@@ -17,7 +17,7 @@ export default createGlobalStyle`
     background: #ebeaed;
   }
 
-  body, input, button, h1, h2, h3, h4, h5, p {
+  body, input, button, h1, h2, h3, h4, h5, p, label {
     font-family: 'Source Sans Pro', sans-serif;
   }
 

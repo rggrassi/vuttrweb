@@ -41,6 +41,7 @@ export default function SignUp() {
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <TextField 
           name='name'
+          label='Username'
           placeholder='Username'
           autoFocus='on'
           register={register}
@@ -48,6 +49,7 @@ export default function SignUp() {
         />
         <TextField 
           name='email'
+          label='E-mail'
           placeholder='Email address'
           type='email'            
           register={register}
@@ -55,6 +57,7 @@ export default function SignUp() {
         />
         <TextField
           name='password'
+          label='Password'
           placeholder='Password'
           type='password'
           register={register}
