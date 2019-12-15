@@ -65,7 +65,7 @@ export default function SignIn() {
           <Link to='/forgot'>Forgot password?</Link> &nbsp;
         </li>
         <li>
-          <Link to='/register'>Create an account</Link>
+          <Link to='/signup'>Create an account</Link>
         </li>
       </ul>
     </React.Fragment>

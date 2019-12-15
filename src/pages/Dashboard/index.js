@@ -8,11 +8,14 @@ import NewTool from '../NewTool';
 import search from '../../assets/search.svg';
 
 export default function Dashboard() {
-  const [open, setOpen] = useState(false);
+  const [state, setState] = useState(null);
+  const [newTool, setNewTool] = useState(false);
 
-  function handleClose() {
-    setOpen(false);
+  function handleNewToolClose() {
+    setNewTool(false);
   }
+
+  //function
   
   return (
     <React.Fragment>
@@ -24,14 +27,14 @@ export default function Dashboard() {
           <ToolBar>
             <Search>
               <div>
-                <Input type='text' autoComplete='off'  autoFocus='on' placeholder='search'/>
+                <Input type='text' autoComplete='off' autoFocus='on' placeholder='search'/>
                 <span>
                   <img src={search} alt='Search'/>                
                 </span>
               </div>
-              <Checkbox caption='search in tags only'/>
+              <Checkbox caption='search in tags only' checked={true}/>
             </Search>
-            <PrimaryButton onClick={() => setOpen(true)}>
+            <PrimaryButton onClick={() => setNewTool(true)}>
               <span>&#10010;</span>          
               Add
             </PrimaryButton>
@@ -53,7 +56,7 @@ export default function Dashboard() {
           </li>
         </ul>
       </ToolsContainer>    
-      <NewTool open={open} onClose={handleClose}/>
+      <NewTool open={newTool} onClose={handleNewToolClose}/>
     </React.Fragment>
   );
 }

@@ -95,7 +95,6 @@ export const ToolsContainer = styled.div`
       }
 
       button {
-        display: inline-flex;
         height: 35px;
         background: none;
         border: 0;

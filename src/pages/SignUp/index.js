@@ -68,7 +68,7 @@ export default function SignUp() {
       <hr/>
       <p>
         Already have an account? &nbsp;
-        <Link to='/'>Sign in</Link>
+        <Link to='/signin'>Sign in</Link>
       </p>
     </React.Fragment>
   )
