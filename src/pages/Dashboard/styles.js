@@ -117,7 +117,7 @@ export const ToolsContainer = styled.div`
       font-size: 16px;
     }
 
-    p:last-of-type {
+    span {
       margin-top: 8px;
       font-weight: 600;
     }
