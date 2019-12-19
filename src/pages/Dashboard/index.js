@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Header, HeaderContainer, ToolBar, Search, ToolsContainer } from './styles';
 import Profile from '../../styles/components/Profile';
 import { PrimaryButton } from '../../styles/components/PrimaryButton';
@@ -8,31 +8,40 @@ import NewTool from '../NewTool';
 import searchIcon from '../../assets/search.svg';
 import api from '../../services/api';
 
+const pageSize = 2;
+
 export default function Dashboard() {
   const [search, setSearch] = useState({
     filter: '',
     tagsOnly: false
   });
-  const [pagination, setPagination] = useState({
-    page: 0,
-    pageSize: 3,
-    pages: 0
-  })
+  
+  const [currentPage, setCurrentPage] = useState(-1);
+  const [pages, setPages] = useState(0);
   const [tools, setTools] = useState([]);
   const [newTool, setNewTool] = useState(false);
-
+  
   function handleNewToolClose() {
     setNewTool(false);
   }
   
-  async function loadTools(prevTools = []) {
-    const url = `/tools/?search=${search.filter}&tagsOnly=${search.tagsOnly}&pageSize=${pagination.pageSize}&page=${pagination.page}`;
+  const loadTools = useCallback(async (page, prevTools) => {
+    const { filter, tagsOnly } = search;
+    const url = `/tools/?search=${filter}&tagsOnly=${tagsOnly}&pageSize=${pageSize}&page=${page}`;
     const response = await api.get(url);
     const { pages, results } = response.data;
     setTools([...prevTools, ...results]);
-    setPagination({ ...pagination, pages });
-  }
+    setPages(pages);
+  }, [search]);
   
+  useEffect(() => {
+    if (currentPage > 0) {
+      loadTools(currentPage, tools);
+    } else if (currentPage === 0) {
+      loadTools(0, []);
+    }     
+  }, [currentPage, loadTools]);
+
   function keyPressed(e) {
     if (e.key !== 'Enter') { 
       return
@@ -40,7 +49,7 @@ export default function Dashboard() {
     if (!search.filter) { 
       return
     }
-    loadTools();    
+    setCurrentPage(0);
   }
   
   return (
@@ -62,8 +71,6 @@ export default function Dashboard() {
                   }}
                   onKeyPress={keyPressed}
                   value={search.filter}
-                  type='text' 
-                  autoComplete='off' 
                   autoFocus='on' 
                   placeholder='search'
                 />
@@ -105,6 +112,7 @@ export default function Dashboard() {
             </li>
           ))}
         </ul>
+        <button onClick={() => setCurrentPage(currentPage + 1)}>Load more</button>
       </ToolsContainer>    
       <NewTool open={newTool} onClose={handleNewToolClose}/>
     </React.Fragment>

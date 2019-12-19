@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
-export const Input = styled.input`
+export const Input = styled.input.attrs({
+  type: 'text',
+  autoComplete: 'off',
+})`
   height: 50px;
   padding: 0 16px;
   border-radius: 5px;
