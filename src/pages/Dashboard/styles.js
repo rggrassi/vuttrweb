@@ -10,7 +10,7 @@ export const Header = styled.div`
   background: #ebeaed;
 `
 export const HeaderContainer = styled.div`
-  margin: 0 auto;
+  margin: 0 auto 8px auto;
   max-width: 960px;  
   padding-top: 16px;
   p {
