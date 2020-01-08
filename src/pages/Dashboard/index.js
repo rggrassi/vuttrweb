@@ -60,15 +60,14 @@ export default class Dashboard extends React.Component {
   }
 
   loadTools = async () => {
-    const { filter, tagsOnly } = this.state;
-    const { currentPage, tools } = this.state;
+    const { filter, tagsOnly, currentPage, tools } = this.state;
     const url = `/tools/?search=${filter}&tagsOnly=${tagsOnly}&pageSize=${pageSize}&page=${currentPage - 1}`;
     const response = await api.get(url);
     const { pages, results } = response.data;
     this.setState({ 
       ...this.state,
       scrolling: false,
-      tools: [...tools, ...results ] ,
+      tools: [...tools, ...results ],
       pages
     });
   };  

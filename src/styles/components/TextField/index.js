@@ -12,7 +12,6 @@ export default function TextField({ name, type, error, placeholder, register, la
         name={name} 
         type={type} 
         placeholder={placeholder} 
-        autoComplete='off' 
         ref={register} 
         {...rest}
       />

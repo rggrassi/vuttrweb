@@ -12,75 +12,65 @@ const pageSize = 2;
 const bottomOffset = 20;
 
 export default function Dashboard() {
-  const [search, setSearch] = useState({
-    filter: '',
-    tagsOnly: false
-  });
-  
-  const [currentPage, setCurrentPage] = useState(null);
+  const [filter, setFilter] = useState('');
+  const [tagsOnly, setTagsOnly] = useState(false);  
+  const [currentPage, setCurrentPage] = useState(1);
   const [pages, setPages] = useState(0);
   const [tools, setTools] = useState([]);
   const [scrolling, setScrolling] = useState(false);
-  const [newTool, setNewTool] = useState(false);  
+  const [newTool, setNewTool] = useState(false);   
   
-  const handleScroll = () => {    
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);    
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }  
+  }, []);
+  
+  useEffect(() => {
+    if (currentPage > 1) {
+      loadTools(currentPage);
+    }
+  }, [currentPage]);
 
+  const handleScroll = useCallback(function() {
     if (scrolling) {
       return;
-    }
-    
-    console.log(currentPage, pages);
-
+    }    
     if (currentPage >= pages) {
-      //console.log(pages, currentPage)
       return;
     }     
     
     const lastLi = document.querySelector('.tools > li:last-child');
     const lastLiOffset = lastLi.offsetTop + lastLi.clientHeight;
     const pageOffset = window.pageYOffset + window.innerHeight;
-    //console.log(pageOffset, lastLiOffset);
     if (pageOffset > lastLiOffset - bottomOffset) {
-      console.log('currentPage: ', currentPage);
-      setScrolling(true);
-      setCurrentPage(currentPage + 1);
+      loadMore();
     }
-    //console.log('lastLi', lastLi);
-  }
+  }, [scrolling, currentPage, pages]);
 
-  //useEffect(() => {
-    window.addEventListener('scroll', handleScroll);    
-    //return () => {
-      //window.removeEventListener('scroll', handleScroll)
-    //}  
-  //}, []);
-  
-
-  const loadTools = useCallback(async (page, search, tools) => {
-    const { filter, tagsOnly } = search;
-    const url = `/tools/?search=${filter}&tagsOnly=${tagsOnly}&pageSize=${pageSize}&page=${page}`;
+  async function loadTools(currentPage) {
+    const url = `/tools/?search=${filter}&tagsOnly=${tagsOnly}&pageSize=${pageSize}&page=${currentPage-1}`;
     const response = await api.get(url);
     const { pages, results } = response.data;
     setTools([...tools, ...results]);
     setPages(pages);
     setScrolling(false);
-  }, []);
-  
-  useEffect(() => {
-    if (currentPage > 0) {
-      loadTools(currentPage, search, tools);
-    }  
-  }, [currentPage, loadTools]);
+  };
+
+  function loadMore() {
+    setScrolling(true);
+    setCurrentPage(old => old + 1);
+  }  
   
   function keyPressed(e) {
     if (e.key !== 'Enter') { 
       return
     }
-    if (!search.filter) { 
+    if (!filter) { 
       return
     }
-    setCurrentPage(0);
-    loadTools(0, search, []);
+    loadTools(1);
   }
 
   function handleNewToolClose() {
@@ -99,13 +89,10 @@ export default function Dashboard() {
               <div>
                 <Input 
                   onChange={e => {
-                    setSearch({
-                      ...search, 
-                      filter: e.target.value
-                    })
+                    setFilter(e.target.value)
                   }}
                   onKeyPress={keyPressed}
-                  value={search.filter}
+                  value={filter}
                   autoFocus='on' 
                   placeholder='search'
                 />
@@ -114,12 +101,11 @@ export default function Dashboard() {
                 </span>
               </div>
               <Checkbox 
-                onChange={() => setSearch({ 
-                  ...search, 
-                  tagsOnly: !search.tagsOnly
-                })}
+                onChange={() => { 
+                  setTagsOnly(!tagsOnly)
+                }}
                 caption='search in tags only'
-                checked={search.tagsOnly}
+                checked={tagsOnly}
               />
             </Search>
             <PrimaryButton onClick={() => setNewTool(true)}>
