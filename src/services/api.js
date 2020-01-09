@@ -22,7 +22,7 @@ api.interceptors.response.use(
   },
   function(error) {
     if (error.response) {
-      return Promise.reject(error.response.data.message);
+      return Promise.reject(error.response.data);
     }
     if (error.request) {
       return Promise.reject(error);

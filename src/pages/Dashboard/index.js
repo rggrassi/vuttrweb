@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Header, HeaderContainer, ToolBar, Search, ToolsContainer } from './styles';
 import Profile from '../../styles/components/Profile';
 import { PrimaryButton } from '../../styles/components/PrimaryButton';
@@ -8,151 +8,134 @@ import NewTool from '../NewTool';
 import searchIcon from '../../assets/search.svg';
 import api from '../../services/api';
 
-const pageSize = 4;
+const pageSize = 8;
 const bottomOffset = 20;
 
-export default class Dashboard extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      filter: '',
-      tagsOnly: false,
-      currentPage: 1,
-      pages: 0,
-      tools: [],
-      scrolling: false,
-      newTool: false
-    }
-  }
+export default function Dashboard() {
+  const [filter, setFilter] = useState('');
+  const [tagsOnly, setTagsOnly] = useState(false);  
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pages, setPages] = useState(0);
+  const [tools, setTools] = useState([]);
+  const [isFetching, setFetching] = useState(false);
+  const [newTool, setNewTool] = useState(false);   
   
-  handleScroll = () => { 
-    const { currentPage, pages, scrolling } = this.state; 
-
-    if (scrolling) {
+  const handleScroll = useCallback(() => {
+    if (isFetching) {
+      return;
+    }   
+    if (pages === 0) {
       return;
     }
-    if (currentPage >= pages) {
+    if (currentPage > pages) {
       return;
-    }     
-    
+    }
     const lastLi = document.querySelector('.tools > li:last-child');
     const lastLiOffset = lastLi.offsetTop + lastLi.clientHeight;
     const pageOffset = window.pageYOffset + window.innerHeight;
     if (pageOffset > lastLiOffset - bottomOffset) {
-      this.loadMore();
+      setFetching(true);
+    }        
+  }, [currentPage, isFetching, pages]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    }  
+  }, [handleScroll]);
+  
+  useEffect(() => {
+    if (!isFetching) {
+      return;
     }
-  }
+    loadTools();    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFetching]);
 
-  componentDidMount() {
-    this.scrollListenner = window.addEventListener('scroll', this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    this.scrollListenner = null;
-  }  
-
-  loadMore = () => {
-    this.setState(prev => ({
-      currentPage: prev.currentPage + 1,
-      scrolling: true
-    }), this.loadTools);
-  }
-
-  loadTools = async () => {
-    const { filter, tagsOnly, currentPage, tools } = this.state;
+  async function loadTools() {
     const url = `/tools/?search=${filter}&tagsOnly=${tagsOnly}&pageSize=${pageSize}&page=${currentPage - 1}`;
     const response = await api.get(url);
     const { pages, results } = response.data;
-    this.setState({ 
-      ...this.state,
-      scrolling: false,
-      tools: [...tools, ...results ],
-      pages
-    });
-  };  
+
+    setTools([...tools, ...results]);
+    setPages(pages);
+    setFetching(false);  
+    setCurrentPage(currentPage + 1);    
+  };
   
-  keyPressed = (e) => {
+  function keyPressed(e) {
     if (e.key !== 'Enter') { 
       return
     }
-    if (!this.state.filter) { 
+    if (!filter) { 
       return
     }
-    this.loadTools();
+    loadTools();
   }
 
-  handleNewToolClose = () => {
-    this.setState({
-      ...this.state,
-       newTool: false 
-    });
+  function handleNewToolClose() {
+    setNewTool(false);
   }
   
-  render() {  
-    return (
-      <React.Fragment>
-        <Header>
-          <Profile/>
-          <HeaderContainer>
-            <h1>VUTTR</h1>
-            <p>Very Usefull Tools to Remenber</p>
-            <ToolBar>
-              <Search>
-                <div>
-                  <Input 
-                    onChange={e => {
-                      this.setState({
-                        ...this.state, 
-                        filter: e.target.value
-                      })
-                    }}
-                    onKeyPress={this.keyPressed}
-                    value={this.state.filter}
-                    autoFocus='on' 
-                    placeholder='search'
-                  />
-                  <span>
-                    <img src={searchIcon} alt='Search'/>                
-                  </span>
-                </div>
-                <Checkbox 
-                  onChange={() => this.setState({ 
-                    ...this.state, 
-                    tagsOnly: !this.state.tagsOnly
-                  })}
-                  caption='search in tags only'
-                  checked={this.state.tagsOnly}
+  return (
+    <React.Fragment>
+      <Header>
+        <Profile/>
+        <HeaderContainer>
+          <h1>VUTTR</h1>
+          <p>Very Usefull Tools to Remenber</p>
+          <ToolBar>
+            <Search>
+              <div>
+                <Input 
+                  onChange={e => {
+                    setFilter(e.target.value)
+                  }}
+                  onKeyPress={keyPressed}
+                  value={filter}
+                  autoFocus='on' 
+                  placeholder='search'
                 />
-              </Search>
-              <PrimaryButton onClick={() => this.setState({ ...this.state, newTool: true })}>
-                <span>&#10010;</span>          
-                Add
-              </PrimaryButton>
-            </ToolBar>
-          </HeaderContainer>
-        </Header>
-        <ToolsContainer>
-          <ul className='tools'>
-            { this.state.tools && this.state.tools.map(tool => (
-              <li key={tool._id}>
-                <div>
-                  <a href={tool.link} target='blank'>{tool.title}</a>
-                  <button>
-                    <span>&#10006;</span>
-                    remove
-                  </button>
-                </div>
-                <p>{tool.description}</p>
-                {tool.tags && tool.tags.map((tag, idx) => (
-                  <span key={idx}>{`#${tag}`}&nbsp;</span>
-                ))}
-              </li>
-            ))}
-          </ul>
-        </ToolsContainer>    
-        <NewTool open={this.state.newTool} onClose={this.handleNewToolClose}/>
-      </React.Fragment>
-    )
-  }
+                <span>
+                  <img src={searchIcon} alt='Search'/>                
+                </span>
+              </div>
+              <Checkbox 
+                onChange={() => { 
+                  setTagsOnly(!tagsOnly)
+                }}
+                caption='search in tags only'
+                checked={tagsOnly}
+              />
+            </Search>
+            <PrimaryButton onClick={() => setNewTool(true)}>
+              <span>&#10010;</span>          
+              Add
+            </PrimaryButton>
+          </ToolBar>
+        </HeaderContainer>
+      </Header>
+      <ToolsContainer>
+        <ul className='tools'>
+          { tools && tools.map((tool, idx) => (
+            <li key={idx}>
+              <div>
+                <a href={tool.link} target='blank'>{tool.title}</a>
+                <button>
+                  <span>&#10006;</span>
+                  remove
+                </button>
+              </div>
+              <p>{tool.description}</p>
+              {tool.tags && tool.tags.map((tag, idx) => (
+                <span key={idx}>{`#${tag}`}&nbsp;</span>
+              ))}
+            </li>
+          ))}
+        </ul>
+      </ToolsContainer>    
+      <NewTool open={newTool} onClose={handleNewToolClose}/>
+    </React.Fragment>
+  );
 }

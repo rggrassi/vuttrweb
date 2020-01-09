@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Input = styled.input.attrs({
-  type: 'text',
   autoComplete: 'off',
 })`
   height: 50px;

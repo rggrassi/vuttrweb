@@ -33,8 +33,8 @@ export default function SignUp() {
 
   return (
     <React.Fragment>
-      { error &&
-        <ContextBanner message={error.message}/>
+      {error &&
+        <ContextBanner message={error.message} type='error'/>
       }
       <p>Join VUTTR</p>
       <h3>Create your account</h3>

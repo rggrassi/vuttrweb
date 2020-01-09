@@ -9,7 +9,6 @@ export default function RouterWrapper(props) {
     const { component: Component, isPrivate, ...rest } = props;
 
     const { signed } = store.getState().auth;
-    // const signed = true;
 
     if (!signed && isPrivate) {
       return <Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>

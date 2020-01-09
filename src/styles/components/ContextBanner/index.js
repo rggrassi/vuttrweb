@@ -27,3 +27,7 @@ ContextBanner.propTypes = {
   message: PropTypes.string.isRequired,
   type: PropTypes.oneOf(Object.keys(Types)).isRequired
 }
+
+ContextBanner.defaultProps = {
+  message: '',
+}
