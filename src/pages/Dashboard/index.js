@@ -7,8 +7,9 @@ import Checkbox from '../../styles/components/Checkbox';
 import NewTool from '../NewTool';
 import searchIcon from '../../assets/search.svg';
 import api from '../../services/api';
+import debounce from 'lodash/debounce';
 
-const pageSize = 8;
+const pageSize = 4;
 const bottomOffset = 20;
 
 export default function Dashboard() {
@@ -18,7 +19,7 @@ export default function Dashboard() {
   const [pages, setPages] = useState(0);
   const [tools, setTools] = useState([]);
   const [isFetching, setFetching] = useState(false);
-  const [newTool, setNewTool] = useState(false);   
+  const [newTool, setNewTool] = useState(false);
   
   const handleScroll = useCallback(() => {
     if (isFetching) {
@@ -35,33 +36,44 @@ export default function Dashboard() {
     const pageOffset = window.pageYOffset + window.innerHeight;
     if (pageOffset > lastLiOffset - bottomOffset) {
       setFetching(true);
-    }        
+    } 
   }, [currentPage, isFetching, pages]);
 
+  const handleDebounceScroll = debounce(handleScroll, 100);
+
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);    
+    window.addEventListener('scroll', handleDebounceScroll);    
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleDebounceScroll);
     }  
-  }, [handleScroll]);
+  }, [handleDebounceScroll]);
   
+  const loadMore = useCallback(async () => {
+    const url = `/tools/?search=${filter}&tagsOnly=${tagsOnly}&pageSize=${pageSize}&page=${currentPage - 1}`;
+    const response = await api.get(url);
+    const { results } = response.data;
+
+    setTools(old => [...old, ...results]);
+    setFetching(false);  
+    setCurrentPage(old => old + 1); 
+  }, [filter, tagsOnly, currentPage]);
+
   useEffect(() => {
     if (!isFetching) {
       return;
     }
-    loadTools();    
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFetching]);
+    loadMore();    
+  }, [isFetching, loadMore]);
 
-  async function loadTools() {
-    const url = `/tools/?search=${filter}&tagsOnly=${tagsOnly}&pageSize=${pageSize}&page=${currentPage - 1}`;
+  async function loadInit() {
+    const url = `/tools/?search=${filter}&tagsOnly=${tagsOnly}&pageSize=${pageSize}&page=${0}`;
     const response = await api.get(url);
     const { pages, results } = response.data;
 
-    setTools([...tools, ...results]);
+    setTools(results);
     setPages(pages);
     setFetching(false);  
-    setCurrentPage(currentPage + 1);    
+    setCurrentPage(2); 
   };
   
   function keyPressed(e) {
@@ -71,7 +83,7 @@ export default function Dashboard() {
     if (!filter) { 
       return
     }
-    loadTools();
+    loadInit();
   }
 
   function handleNewToolClose() {
