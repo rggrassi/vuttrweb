@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import { Header, HeaderContainer, ToolBar, Search, ToolsContainer } from './styles';
 import Profile from '../../styles/components/Profile';
 import { PrimaryButton } from '../../styles/components/PrimaryButton';
@@ -7,63 +7,36 @@ import Checkbox from '../../styles/components/Checkbox';
 import NewTool from '../NewTool';
 import searchIcon from '../../assets/search.svg';
 import api from '../../services/api';
-import debounce from 'lodash/debounce';
+import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 
-const pageSize = 4;
-const bottomOffset = 20;
+const pageSize = 6;
 
 export default function Dashboard() {
   const [filter, setFilter] = useState('');
   const [tagsOnly, setTagsOnly] = useState(false);  
-  const [currentPage, setCurrentPage] = useState(1);
   const [pages, setPages] = useState(0);
   const [tools, setTools] = useState([]);
-  const [isFetching, setFetching] = useState(false);
   const [newTool, setNewTool] = useState(false);
+
+  const [ 
+    isFetching, 
+    setFetching, 
+    currentPage, 
+    setCurrentPage 
+  ] = useInfiniteScroll(pages, loadMore);
   
-  const handleScroll = useCallback(() => {
-    if (isFetching) {
-      return;
-    }   
-    if (pages === 0) {
-      return;
-    }
-    if (currentPage > pages) {
-      return;
-    }
-    const lastLi = document.querySelector('.tools > li:last-child');
-    const lastLiOffset = lastLi.offsetTop + lastLi.clientHeight;
-    const pageOffset = window.pageYOffset + window.innerHeight;
-    if (pageOffset > lastLiOffset - bottomOffset) {
-      setFetching(true);
-    } 
-  }, [currentPage, isFetching, pages]);
-
-  const handleDebounceScroll = debounce(handleScroll, 100);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleDebounceScroll);    
-    return () => {
-      window.removeEventListener('scroll', handleDebounceScroll);
-    }  
-  }, [handleDebounceScroll]);
-  
-  const loadMore = useCallback(async () => {
-    const url = `/tools/?search=${filter}&tagsOnly=${tagsOnly}&pageSize=${pageSize}&page=${currentPage - 1}`;
-    const response = await api.get(url);
-    const { results } = response.data;
-
-    setTools(old => [...old, ...results]);
-    setFetching(false);  
-    setCurrentPage(old => old + 1); 
-  }, [filter, tagsOnly, currentPage]);
-
-  useEffect(() => {
-    if (!isFetching) {
-      return;
-    }
-    loadMore();    
-  }, [isFetching, loadMore]);
+  function loadMore() {
+    const url = `/tools/?search=${filter}&tagsOnly=${tagsOnly}&pageSize=${pageSize}&page=${currentPage - 1}`;    
+    api.get(url)
+      .then(response => {
+        const { results } = response.data;
+        setTimeout(() => {
+            setTools(old => [...old, ...results]);
+            setFetching(false);  
+            setCurrentPage(old => old + 1);              
+        }, 1000);
+      })
+  } 
 
   async function loadInit() {
     const url = `/tools/?search=${filter}&tagsOnly=${tagsOnly}&pageSize=${pageSize}&page=${0}`;
@@ -145,6 +118,11 @@ export default function Dashboard() {
               ))}
             </li>
           ))}
+          {isFetching && 
+            <li style={{ textAlign: 'center' }}>
+              <p>Loading...</p>
+            </li>
+          }
         </ul>
       </ToolsContainer>    
       <NewTool open={newTool} onClose={handleNewToolClose}/>
