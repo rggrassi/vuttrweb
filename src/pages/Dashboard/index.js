@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Header, HeaderContainer, ToolBar, Search, ToolsContainer } from './styles';
-import Profile from '../../styles/components/Profile';
 import { PrimaryButton } from '../../styles/components/PrimaryButton';
 import { Input } from '../../styles/components/Input';
 import Checkbox from '../../styles/components/Checkbox';
@@ -9,7 +8,7 @@ import searchIcon from '../../assets/search.svg';
 import api from '../../services/api';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 
-const pageSize = 6;
+const pageSize = 8;
 
 export default function Dashboard() {
   const [filter, setFilter] = useState('');
@@ -23,9 +22,9 @@ export default function Dashboard() {
     setFetching, 
     currentPage, 
     setCurrentPage 
-  ] = useInfiniteScroll(pages, loadMore);
+  ] = useInfiniteScroll(pages, fetchMore);
   
-  function loadMore() {
+  function fetchMore() {
     const url = `/tools/?search=${filter}&tagsOnly=${tagsOnly}&pageSize=${pageSize}&page=${currentPage - 1}`;    
     api.get(url)
       .then(response => {
@@ -38,7 +37,7 @@ export default function Dashboard() {
       })
   } 
 
-  async function loadInit() {
+  async function initFetch() {
     const url = `/tools/?search=${filter}&tagsOnly=${tagsOnly}&pageSize=${pageSize}&page=${0}`;
     const response = await api.get(url);
     const { pages, results } = response.data;
@@ -56,7 +55,7 @@ export default function Dashboard() {
     if (!filter) { 
       return
     }
-    loadInit();
+    initFetch();
   }
 
   function handleNewToolClose() {
@@ -66,7 +65,6 @@ export default function Dashboard() {
   return (
     <React.Fragment>
       <Header>
-        <Profile/>
         <HeaderContainer>
           <h1>VUTTR</h1>
           <p>Very Usefull Tools to Remenber</p>
@@ -102,7 +100,7 @@ export default function Dashboard() {
         </HeaderContainer>
       </Header>
       <ToolsContainer>
-        <ul className='tools'>
+        <ul>
           { tools && tools.map((tool, idx) => (
             <li key={idx}>
               <div>

@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Profile, ProfileContainer } from './styles';
+import { Section, Container } from './styles';
 
 export default function () {
   return (
-    <Profile>
-      <ProfileContainer>
+    <Section>
+      <Container>
         <div>
           <strong>rgrassi1@gmail.com</strong>
           <Link to='#'>My profile</Link>
         </div>
-      </ProfileContainer>
-    </Profile>
+      </Container>
+    </Section>
   )
 }

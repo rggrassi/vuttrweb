@@ -4,14 +4,12 @@ import { Container as Checkbox } from '../../styles/components/Checkbox/styles';
 import { Input } from '../../styles/components/Input';
 
 export const Header = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: #ebeaed;
+  margin-top: 60px;
 `
 export const HeaderContainer = styled.div`
   margin: 0 auto 8px auto;
-  max-width: 960px;  
+  max-width: 960px; 
+  width: 100%; 
   padding-top: 16px;
   p {
     font-size: 20px;
@@ -28,10 +26,6 @@ export const ToolBar = styled.div`
   
   ${PrimaryButton} {
     padding: 0 24px;
-    background: #365df0;
-    &:hover {
-      background : #2f55cc ;
-    }
     span {
       padding-right: 8px;
     }
@@ -70,7 +64,7 @@ export const Search = styled.div`
 export const ToolsContainer = styled.div`  
   width: 100%;
   max-width: 960px;
-  margin: 240px auto 0 auto;
+  margin: 0 auto;
 
   li {
     margin: 16px 0;

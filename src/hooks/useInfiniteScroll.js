@@ -1,13 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import debounce from 'lodash/debounce';
+import PropTypes from 'prop-types';
 
 const bottomOffset = 20;
 
-export default function useInfiniteScroll(pages, callback) {
+export default function useInfiniteScroll(pages, fetchMore) {
   const [isFetching, setFetching] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const load = useCallback(callback, [currentPage]);
+  const fetch = useCallback(fetchMore, [currentPage]);
 
   const handleScroll = useCallback(() => {
     if (isFetching) {
@@ -38,8 +39,17 @@ export default function useInfiniteScroll(pages, callback) {
     if (!isFetching) {
       return;
     }
-    load();    
-  }, [isFetching, load]);
+    fetch();    
+  }, [isFetching, fetch]);
 
   return [isFetching, setFetching, currentPage, setCurrentPage];
+}
+
+useInfiniteScroll.propTypes = {
+  pages: PropTypes.number.isRequired,
+  fetchMore: PropTypes.func.isRequired
+}
+
+useInfiniteScroll.defaultProps = {
+  pages: 0
 }
