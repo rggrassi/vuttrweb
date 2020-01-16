@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Header, HeaderContainer, ToolBar, Search, ToolsContainer } from './styles';
+import { Container, Header, Search, ToolList } from './styles';
 import { PrimaryButton } from '../../styles/components/PrimaryButton';
 import { Input } from '../../styles/components/Input';
 import Checkbox from '../../styles/components/Checkbox';
@@ -63,67 +63,63 @@ export default function Dashboard() {
   }
   
   return (
-    <React.Fragment>
+    <Container>
       <Header>
-        <HeaderContainer>
-          <h1>VUTTR</h1>
-          <p>Very Usefull Tools to Remenber</p>
-          <ToolBar>
-            <Search>
-              <div>
-                <Input 
-                  onChange={e => {
-                    setFilter(e.target.value)
-                  }}
-                  onKeyPress={keyPressed}
-                  value={filter}
-                  autoFocus='on' 
-                  placeholder='search'
-                />
-                <span>
-                  <img src={searchIcon} alt='Search'/>                
-                </span>
-              </div>
-              <Checkbox 
-                onChange={() => { 
-                  setTagsOnly(!tagsOnly)
-                }}
-                caption='search in tags only'
-                checked={tagsOnly}
-              />
-            </Search>
-            <PrimaryButton onClick={() => setNewTool(true)}>
-              <span>&#10010;</span>          
-              Add
-            </PrimaryButton>
-          </ToolBar>
-        </HeaderContainer>
+        <h1>VUTTR</h1>
+        <p>Very Usefull Tools to Remenber</p>
       </Header>
-      <ToolsContainer>
-        <ul>
-          { tools && tools.map((tool, idx) => (
-            <li key={idx}>
-              <div>
-                <a href={tool.link} target='blank'>{tool.title}</a>
-                <button>
-                  <span>&#10006;</span>
-                  remove
-                </button>
-              </div>
-              <p>{tool.description}</p>
-              {tool.tags && tool.tags.map((tag, idx) => (
-                <span key={idx}>{`#${tag}`}&nbsp;</span>
-              ))}
-            </li>
-          ))}
-          {isFetching && 
-            <li style={{ textAlign: 'center' }}>
-              <p>Loading...</p>
-            </li>
-          }
-        </ul>
-      </ToolsContainer>    
+      <Search>
+        <div>
+          <div>
+            <Input 
+              onChange={e => {
+                setFilter(e.target.value)
+              }}
+              onKeyPress={keyPressed}
+              value={filter}
+              autoFocus='on' 
+              placeholder='search'
+            />
+            <span>
+              <img src={searchIcon} alt='Search'/>                
+            </span>            
+          </div>
+          <Checkbox 
+            onChange={() => { 
+              setTagsOnly(!tagsOnly)
+            }}
+            caption='search in tags only'
+            checked={tagsOnly}
+          />
+        </div>
+        <PrimaryButton onClick={() => setNewTool(true)}>
+          <span>&#10010;</span>          
+          Add
+        </PrimaryButton>
+      </Search>
+      <ToolList>
+        { tools && tools.map((tool, idx) => (
+          <li key={idx}>
+            <div>
+              <a href={tool.link} target='blank'>{tool.title}</a>
+              <button>
+                <span>&#10006;</span>
+                remove
+              </button>
+            </div>
+            <p>{tool.description}</p>
+            {tool.tags && tool.tags.map((tag, idx) => (
+              <span key={idx}>{`#${tag}`}&nbsp;</span>
+            ))}
+          </li>
+        ))}
+        { isFetching && 
+          <li style={{ textAlign: 'center' }}>
+            <p>Loading...</p>
+          </li>
+        }
+      </ToolList>          
       <NewTool open={newTool} onClose={handleNewToolClose}/>
-    </React.Fragment>
+    </Container>
   );
 }
