@@ -6,25 +6,26 @@ import Auth from '../pages/layouts/auth';
 import Default from '../pages/layouts/default';
 
 export default function RouterWrapper(props) {
-    const { component: Component, isPrivate, ...rest } = props;
+  const { component: Component, isPrivate, ...rest } = props;
 
-    const { signed } = store.getState().auth;
+    //const { signed } = store.getState().auth;
+  const signed = true;
 
-    if (!signed && isPrivate) {
-      return <Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
-    }
+  if (!signed && isPrivate) {
+    return <Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
+  }
 
-    if (signed && !isPrivate) {
-      return <Redirect to='/'/>
-    }
+  if (signed && !isPrivate) {
+    return <Redirect to='/'/>
+  }
 
-    const Layout = signed ? Default : Auth;
+  const Layout = signed ? Default : Auth;
 
-    return <Route {...rest} render={props => (
-      <Layout>
-        <Component {...props}/>
-      </Layout>
-    )}/>
+  return <Route {...rest} render={props => (
+    <Layout>
+      <Component {...props}/>
+    </Layout>
+  )}/>
 }
 
 RouterWrapper.propTypes = {

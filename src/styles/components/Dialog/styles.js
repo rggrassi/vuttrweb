@@ -1,25 +1,26 @@
 import styled from 'styled-components';
 
-export const Modal = styled.div`
+export const Container = styled.div`
   visibility: ${props => props.open ? 'visible' : 'hidden'};
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
-  min-width: 300px;  
+  min-width: 400px;  
   z-index: 2000;
-`
-export const ModalContainer = styled.div`
-  position: relative;
-  max-width: 800px;
-  min-height: 120px;  
-  padding: 16px;
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0px 20px 25px #0000001A;
-  opacity: ${props => props.open ? 1 : 0};
-  transform: ${props => props.open ? `scale(1)` : `scale(0.5)`};
-  transition: all 0.3s;
+
+  & > div {
+    position: relative;
+    max-width: 800px;
+    min-height: 120px;  
+    padding: 16px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 20px 25px #0000001A;
+    opacity: ${props => props.open ? 1 : 0};
+    transform: ${props => props.open ? `scale(1)` : `scale(0.5)`};
+    transition: all 0.3s;
+  }
 `
 export const Overlay = styled.div`
   position: fixed;

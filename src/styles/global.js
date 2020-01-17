@@ -21,6 +21,10 @@ export default createGlobalStyle`
     font-family: 'Source Sans Pro', sans-serif;
   }
 
+  input:focus {
+    outline: none;
+  }
+
   body, h1, h2, h3, h4, h5, p, ul {
     padding: 0px;
     margin: 0px;
