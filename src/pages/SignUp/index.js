@@ -41,7 +41,7 @@ export default function SignUp() {
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <TextField 
           name='name'
-          label='Username'
+          label='Name'
           placeholder='Username'
           autoFocus='on'
           register={register}
