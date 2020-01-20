@@ -8,8 +8,7 @@ import Default from '../pages/layouts/default';
 export default function RouterWrapper(props) {
   const { component: Component, isPrivate, ...rest } = props;
 
-    //const { signed } = store.getState().auth;
-  const signed = true;
+  const { signed } = store.getState().auth;
 
   if (!signed && isPrivate) {
     return <Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>

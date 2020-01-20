@@ -33,7 +33,7 @@ export default function Dashboard() {
             setTools(old => [...old, ...results]);
             setFetching(false);  
             setCurrentPage(old => old + 1);              
-        }, 1000);
+        }, 1500);
       })
   } 
 
@@ -119,7 +119,7 @@ export default function Dashboard() {
           </li>
         }
       </ToolList>          
-      <NewTool open={newTool} onClose={handleNewToolClose}/>
+      <NewTool open={newTool} handleClose={handleNewToolClose}/>
     </Container>
   );
 }

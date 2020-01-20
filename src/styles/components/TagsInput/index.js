@@ -16,8 +16,8 @@ export default function TagsInput({ label, tags, addTag, removeTag }) {
     e.target.value = '';
   }
 
-  function handleRemove(idx) {
-    removeTag(idx);
+  function handleRemove(index) {
+    removeTag(index);
   }
 
   return (
