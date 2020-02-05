@@ -11,6 +11,8 @@ export default function TagsInput({ label, tags, addTag, removeTag }) {
     if (!e.target.value) {
       return;
     } 
+    
+    e.preventDefault();
 
     addTag(e.target.value);
     e.target.value = '';

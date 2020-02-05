@@ -6,12 +6,12 @@ export const Container = styled.div`
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
-  min-width: 400px;  
+  max-width: 800px;
+  width: 100%;
   z-index: 2000;
 
   & > div {
     position: relative;
-    max-width: 800px;
     min-height: 120px;  
     padding: 16px;
     background: #fff;

@@ -2,38 +2,35 @@ import React from 'react';
 import { Container } from './styles';
 import { Input } from '../Input'
 import PropTypes from 'prop-types';
+import { useFormContext } from 'react-hook-form';
 
-export default function TextField({ name, type, error, placeholder, register, label, ...rest }) {
+export default function TextField({ id, name, label, ...rest }) {
+  const { register, errors } = useFormContext();
+  const { message } = errors[name] || '';
+  
   return (
-    <Container error={error}>
-      <label htmlFor={name}>{label}</label>
+    <Container error={message}>
+      <label htmlFor={id}>{label}</label>
       <Input 
-        id={name}
+        id={id}
         name={name} 
-        type={type} 
-        placeholder={placeholder} 
-        ref={register} 
+        ref={register}
         {...rest}
       />
-      { error &&
-        <p>{error}</p>
+      { message &&
+        <p>{message}</p>
       }
     </Container>
   )
 }
 
 TextField.propTypes = {
+  id: PropTypes.any,
   name: PropTypes.string.isRequired,
-  type: PropTypes.string,
-  placeholder: PropTypes.string,
-  error: PropTypes.string,
-  register: PropTypes.func.isRequired,
   label: PropTypes.string
 };
 
 TextField.defaultProps = {
-  type: 'text',
+  id: '',
   label: '',
-  placeholder: '',
-  error: ''
 };

@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import Dialog from '../../styles/components/Dialog';
 import TextField from '../../styles/components/TextField'
 import TagsInput from '../../styles/components/TagsInput';
+import SubmitButton from '../../styles/components/SubmitButton';
 import { Container } from './styles';
-import useForm from 'react-hook-form';
+import useForm, { FormContext } from 'react-hook-form';
 import * as Yup from 'yup';
 import api from '../../services/api';
 
@@ -29,7 +30,7 @@ export default function NewTool({ open, handleClose }) {
   }
 
   function removeTag(index) {
-    setTags(old => old.filter((tag, idx) => index !== idx));    
+    setTags(old => old.filter((_, idx) => index !== idx));    
   }
 
   async function onSubmit({ title, link, description }) {
@@ -44,36 +45,36 @@ export default function NewTool({ open, handleClose }) {
           <span>&#10010;</span>
           Add new tool
         </h4>
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <TextField 
-            label='Title'
-            placeholder='Tool name'
-            name='title'
-            autoFocus='on'
-            register={register}
-            error={errors.title && errors.title.message}  
-          />
-          <TextField
-            label='Link'
-            placeholder='Tool link'
-            name='link'          
-            register={register}
-            error={errors.link && errors.link.message}  
-          />
-          <TextField
-            label='Description'
-            placeholder='Tool description'
-            name='description'
-            register={register}
-            error={errors.description && errors.description.message}              
-          />
-          <TagsInput 
-            label='Tags' 
-            tags={tags} 
-            addTag={addTag} 
-            removeTag={removeTag}
-          />
-        </form>
+        <FormContext register={register} errors={errors}>
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <TextField 
+              id='title'
+              name='title'
+              label='Title'
+              placeholder='Tool name'
+              autoFocus='on'
+            />
+            <TextField
+              id='link'
+              name='link'          
+              label='Link'
+              placeholder='Tool link'
+            />
+            <TextField
+              id='description'
+              name='description'
+              label='Description'
+              placeholder='Tool description'
+            />
+            <TagsInput 
+              label='Tags' 
+              tags={tags} 
+              addTag={addTag} 
+              removeTag={removeTag}
+            />
+            <SubmitButton caption='Submit'/>
+          </form>
+        </FormContext>
       </Container>
     </Dialog>
   )
